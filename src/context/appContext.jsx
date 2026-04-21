@@ -28,10 +28,14 @@ export const OrderProvider = ({ children }) => {
                     tokenRes.dataUrl
                 );
 
-                dispatch({ type: "SET_ORDERS", payload: orders});
+                // Ensure orders is an array and transform data
+                const processedOrders = Array.isArray(orders) ? orders : [];
+                console.log("Orders loaded:", processedOrders);
+                dispatch({ type: "SET_ORDERS", payload: processedOrders});
 
             }catch(err){
-                console.log("Dataset Failed to Load: " + err);
+                console.error("Dataset Failed to Load: ", err);
+                dispatch({ type: "SET_ORDERS", payload: []});
             }
         };
 

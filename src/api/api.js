@@ -16,5 +16,6 @@ export const getDataset = async (token, dataUrl) => {
             Authorization: `Bearer ${token}`
         }
     });
-    return data.data;
+    // Extract orders array from the nested data structure
+    return data.data.orders || data.data || [];
 };

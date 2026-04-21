@@ -4,32 +4,31 @@ import { Link } from 'react-router-dom';
 export default function OrdersList() {
   const { orders } = useOrder();
 
-  // Filter valid orders only
-  const validOrders = orders.filter(
-    (order) =>
-      order.items &&
-      order.items.length > 0 &&
-      order.items.every((item) => item.quantity > 0) &&
-      order.totalAmount > 0
-  );
+  // Filter valid orders - ensure required fields exist
+  const validOrders = orders
+    .map((order) => ({
+      ...order,
+      items: order.items || [],
+      totalAmount: order.totalAmount || 0,
+    }))
+    .filter(
+      (order) =>
+        order.orderId &&
+        order.items.length > 0 &&
+        order.totalAmount > 0
+    );
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+    <div>
       <h1>All Orders</h1>
       {validOrders.length === 0 ? (
         <p>No valid orders found.</p>
       ) : (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+        <ul>
           {validOrders.map((order) => (
             <li
               key={order.orderId}
               data-testid="order-item"
-              style={{
-                border: '1px solid #ddd',
-                padding: '15px',
-                marginBottom: '10px',
-                borderRadius: '5px',
-              }}
             >
               <h3>Order #{order.orderId}</h3>
               <p>
@@ -44,7 +43,7 @@ export default function OrdersList() {
               <p>
                 <strong>Status:</strong> {order.status}
               </p>
-              <Link to={`/orders/${order.orderId}`} style={{ color: '#007bff', textDecoration: 'underline' }}>
+              <Link to={`/orders/${order.orderId}`}>
                 View Details
               </Link>
             </li>

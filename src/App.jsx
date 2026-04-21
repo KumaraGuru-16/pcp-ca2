@@ -9,20 +9,20 @@ function App() {
   return (
     <OrderProvider>
       <Router>
-        <nav style={{ backgroundColor: '#333', padding: '15px', marginBottom: '20px' }}>
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', gap: '20px' }}>
+        <nav>
+          <ul>
             <li>
-              <Link to="/" style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold' }}>
+              <Link to="/">
                 All Orders
               </Link>
             </li>
             <li>
-              <Link to="/filter" style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold' }}>
+              <Link to="/filter">
                 Filter Orders
               </Link>
             </li>
             <li>
-              <Link to="/stats" style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold' }}>
+              <Link to="/stats">
                 Analytics
               </Link>
             </li>
@@ -36,6 +36,8 @@ function App() {
           <Route path="/stats" element={<Stats />} />
         </Routes>
       </Router>
+
+
     </OrderProvider>
   );
 }
